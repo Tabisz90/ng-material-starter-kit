@@ -9,6 +9,7 @@ import { UserServiceModule } from './services/user.service-module';
 import { EmployeeFormComponent } from './components/employee-form/employee-form.component';
 import { EmployeeFormComponentModule } from './components/employee-form/employee-form.component-module';
 import { EmployeesServiceModule } from './services/employees.service-module';
+import { CategoriesServiceModule } from "./services/categories.service-module";
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { EmployeesServiceModule } from './services/employees.service-module';
     EmployeesServiceModule,
     LoginFormComponentModule,
     UserServiceModule,
+    CategoriesServiceModule
   ],
   exports: [RouterModule],
 })
