@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ProductsService } from '../../services/products.service';
@@ -21,7 +25,10 @@ export class ProductFormComponent {
   });
   readonly categories$: Observable<string[]> = this._categoriesService.getAll();
 
-  constructor(private _productsService: ProductsService, private _categoriesService: CategoriesService) { }
+  constructor(
+    private _productsService: ProductsService,
+    private _categoriesService: CategoriesService
+  ) {}
 
   onProductFormSubmitted(productForm: FormGroup): void {
     this._productsService
