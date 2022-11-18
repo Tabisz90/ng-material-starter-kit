@@ -3,12 +3,15 @@ import { RouterModule } from '@angular/router';
 import { CatFactComponent } from './components/cat-fact/cat-fact.component';
 import { AgePredictionComponent } from './components/age-prediction/age-prediction.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CatFactComponentModule } from './components/cat-fact/cat-fact.component-module';
 import { CatFactsServiceModule } from './services/cat-facts.service-module';
 import { AgePredictionComponentModule } from './components/age-prediction/age-prediction.component-module';
 import { PersonsServiceModule } from './services/persons.service-module';
 import { ProductDetailsComponentModule } from './components/product-details/product-details.component-module';
 import { ProductsServiceModule } from './services/products.service-module';
+import { CartDetailsComponentModule } from './components/cart-details/cart-details.component-module';
+import { CartsServiceModule } from './services/carts.service-module';
 
 @NgModule({
   imports: [
@@ -16,6 +19,7 @@ import { ProductsServiceModule } from './services/products.service-module';
       { path: 'cat-fact', component: CatFactComponent },
       { path: 'age/:name', component: AgePredictionComponent },
       { path: 'product/:id', component: ProductDetailsComponent },
+      { path: 'cart/:id', component: CartDetailsComponent }
     ]),
     CatFactComponentModule,
     CatFactsServiceModule,
@@ -23,7 +27,9 @@ import { ProductsServiceModule } from './services/products.service-module';
     PersonsServiceModule,
     ProductDetailsComponentModule,
     ProductsServiceModule,
+    CartDetailsComponentModule,
+    CartsServiceModule
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
