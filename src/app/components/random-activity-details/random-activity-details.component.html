@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-title>Random Activity</mat-card-title>
+  <mat-card-content>
+    <ng-container *ngIf="activity$ | async as item">
+      <p>
+        name: {{ item.activity }}
+        <br>accessibility: {{ item.accessibility }}
+        <br>link: {{ item.link }}
+        <br>price: {{ item.price }}
+        <br>participants: {{ item.participants }}
+        <br>participants: {{ item.participants }}
+      </p>
+    </ng-container>
+  </mat-card-content>
+</mat-card>

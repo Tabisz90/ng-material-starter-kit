@@ -3,9 +3,10 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { ProductModel } from 'src/app/models/product.model';
 import { ProductsService } from '../../services/products.service';
 
 @Component({
@@ -15,7 +16,7 @@ import { ProductsService } from '../../services/products.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailsComponent {
-  readonly productDetails$: Observable<Params> =
+  readonly productDetails$: Observable<ProductModel> =
     this._activatedRoute.params.pipe(
       switchMap((data) => this._productsService.getOne(data['id']))
     );

@@ -5,6 +5,7 @@ import { AgePredictionComponent } from './components/age-prediction/age-predicti
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { RandomActivityDetailsComponent } from './components/random-activity-details/random-activity-details.component';
 import { CatFactComponentModule } from './components/cat-fact/cat-fact.component-module';
 import { CatFactsServiceModule } from './services/cat-facts.service-module';
 import { AgePredictionComponentModule } from './components/age-prediction/age-prediction.component-module';
@@ -15,6 +16,8 @@ import { CartDetailsComponentModule } from './components/cart-details/cart-detai
 import { CartsServiceModule } from './services/carts.service-module';
 import { UserDetailsComponentModule } from './components/user-details/user-details.component-module';
 import { UsersServiceModule } from './services/users.service-module';
+import { RandomActivityDetailsComponentModule } from './components/random-activity-details/random-activity-details.component-module';
+import { ActivitiesServiceModule } from './services/activities.service-module';
 
 @NgModule({
   imports: [
@@ -24,6 +27,7 @@ import { UsersServiceModule } from './services/users.service-module';
       { path: 'product/:id', component: ProductDetailsComponent },
       { path: 'cart/:id', component: CartDetailsComponent },
       { path: 'user/:id', component: UserDetailsComponent },
+      { path: 'activity', component: RandomActivityDetailsComponent },
     ]),
     CatFactComponentModule,
     CatFactsServiceModule,
@@ -35,7 +39,9 @@ import { UsersServiceModule } from './services/users.service-module';
     CartsServiceModule,
     UserDetailsComponentModule,
     UsersServiceModule,
+    RandomActivityDetailsComponentModule,
+    ActivitiesServiceModule
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
