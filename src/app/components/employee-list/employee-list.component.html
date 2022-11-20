@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-title></mat-card-title>
+  <mat-card-content
+  >
+    <mat-list role="list" fxLayout="row">
+      <mat-list-item role="listitem" *ngFor="let order of orders$ | async" (click)="sort(order)"
+                     matRipple
+                     [matRippleCentered]="true">{{order}}</mat-list-item>
+    </mat-list>
+    <mat-list role="list" fxLayout="row">
+      <mat-list-item role="listitem" *ngFor="let sort of filters$ | async" (click)="filter(sort.min, sort.max)"
+                     matRipple
+                     [matRippleCentered]="true">
+        <ng-container *ngIf="sort.max === 9999; else numberFilters">All</ng-container>
+        <ng-template #numberFilters>{{sort.min}}-{{sort.max}}</ng-template>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card>
+    <mat-card-title></mat-card-title>
+    <mat-card-content>
+      <mat-list role="list">
+        <mat-list-item role="listitem"
+                       *ngFor="let employee of employees$ | async">{{employee.name}}<br> age: {{employee.age}}
+          salary: {{employee.salary}}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
