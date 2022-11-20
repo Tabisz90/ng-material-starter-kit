@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-title>Employees</mat-card-title>
+  <mat-card-content>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let employee of employees$ | async">{{employee.name}}
+        <br>age: {{employee.age}} salary:{{employee.salary}}
+        <button mat-button mat-raised-button (click)="delete(employee.id)">Remove</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
