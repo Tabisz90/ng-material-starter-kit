@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-title>Product list</mat-card-title>
+  <mat-card-content>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let product of products$ | async">{{product.title}} {{product.price}}
+        <button mat-button mat-raised-button color="primary" (click)="delete(product.id)">Remove</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
