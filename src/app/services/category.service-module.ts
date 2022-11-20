@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CategoryService } from './category.service';
+import {NgModule} from '@angular/core';
+import {CategoryService} from './category.service';
 
 @NgModule({
   imports: [],
@@ -7,4 +7,5 @@ import { CategoryService } from './category.service';
   providers: [CategoryService],
   exports: [],
 })
-export class CategoryServiceModule {}
+export class CategoryServiceModule {
+}

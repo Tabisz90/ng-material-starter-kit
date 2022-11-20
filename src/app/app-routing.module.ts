@@ -1,19 +1,30 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FilteredProductListComponent } from './components/filtered-product-list/filtered-product-list.component';
-import { FilteredProductListComponentModule } from './components/filtered-product-list/filtered-product-list.component-module';
-import { CategoriesServiceModule } from './services/categories.service-module';
-import { ProductsServiceModule } from './services/products.service-module';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {FilteredProductListComponent} from './components/filtered-product-list/filtered-product-list.component';
+import {
+  SubjectBasedFilteredProductListComponent
+} from './components/subject-based-filtered-product-list/subject-based-filtered-product-list.component';
+import {
+  FilteredProductListComponentModule
+} from './components/filtered-product-list/filtered-product-list.component-module';
+import {CategoriesServiceModule} from './services/categories.service-module';
+import {ProductsServiceModule} from './services/products.service-module';
+import {
+  SubjectBasedFilteredProductListComponentModule
+} from './components/subject-based-filtered-product-list/subject-based-filtered-product-list.component-module';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      { path: 'products/:category', component: FilteredProductListComponent },
+      {path: 'products/:category', component: FilteredProductListComponent},
+      {path: 'products', component: SubjectBasedFilteredProductListComponent}
     ]),
     FilteredProductListComponentModule,
     CategoriesServiceModule,
     ProductsServiceModule,
+    SubjectBasedFilteredProductListComponentModule
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
