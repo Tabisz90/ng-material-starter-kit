@@ -39,6 +39,10 @@
       "list": "<mat-list role=\"list\">$content$</mat-list>",
       "item": "<mat-list-item role=\"listitem\" *ngFor=\"let $itemVariable$ of $listVariable$\">{{$itemVariable$}}</mat-list-item>"
     },
+    "smart-list": {
+      "list": "<mat-list role=\"list\" *ngIf=\"$listVariable$ as list; else loading\">$content$</mat-list>\n<ng-template #loading>\n<mat-progress-spinner\n        [color]=\"'primary'\"\n        [mode]=\"'indeterminate'\"\n        [value]=\"50\">\n      </mat-progress-spinner></ng-template>",
+      "item": "<mat-list-item role=\"listitem\" *ngFor=\"let $itemVariable$ of $listVariable$\">{{$itemVariable$}}</mat-list-item>"
+    },
     "selection-list": {
       "list": "<mat-selection-list role=\"list\">$content$</mat-selection-list>",
       "item": "<mat-list-option role=\"listitem\" *ngFor=\"let $itemVariable$ of $listVariable$\">{{$itemVariable$}}</mat-list-option>"
