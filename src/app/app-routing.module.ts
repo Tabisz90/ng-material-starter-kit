@@ -30,5 +30,4 @@ import {CryptoServiceModule} from './services/crypto.service-module';
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }
