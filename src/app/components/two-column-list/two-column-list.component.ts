@@ -3,9 +3,9 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { Observable, Subject, switchMap } from 'rxjs';
-import { ProductModel } from '../../models/product.model';
-import { ProductsService } from '../../services/products.service';
+import {Observable, Subject, switchMap} from 'rxjs';
+import {ProductModel} from '../../models/product.model';
+import {ProductsService} from '../../services/products.service';
 
 @Component({
   selector: 'app-two-column-list',
@@ -24,7 +24,8 @@ export class TwoColumnListComponent {
       switchMap((selectedId) => this._productsService.getOne(selectedId))
     );
 
-  constructor(private _productsService: ProductsService) {}
+  constructor(private _productsService: ProductsService) {
+  }
 
   select(id: number): void {
     this._selectedProductIdSubject.next(id);
