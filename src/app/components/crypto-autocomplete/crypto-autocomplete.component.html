@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-title>Crypto List</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="cryptoForm">
+      <mat-chip-list aria-label="Fish selection" formArrayName="selectedSymbols">
+        <mat-chip *ngFor="let item of selectedSymbols.controls">
+          {{item.getRawValue()}}
+        </mat-chip>
+      </mat-chip-list>
+      <mat-form-field appearance="fill">
+        <mat-label>Select crypto</mat-label>
+        <input type="text"
+               placeholder="Select crypto"
+               matInput
+               formControlName="symbol"
+               [matAutocomplete]="symbol">
+        <mat-autocomplete #symbol="matAutocomplete">
+          <mat-option *ngFor="let item of filteredCrypto$ | async" [value]="item.symbol"
+          >
+            <div (click)="addCrypto(item.symbol)">
+              {{item.symbol}}
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
