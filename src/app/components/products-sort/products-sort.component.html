@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Show sorted products</h1>
+
+  <div class="links-container"><a *ngFor="let item of orders$ | async"
+                                  [routerLink]="['/list-2-route-sort-single-products-backend']"
+                                  [queryParams]="{sort: item}">{{item}}</a></div>
+
+
+  <mat-chip-list aria-label="Fish selection">
+    <mat-chip *ngFor="let item of products$ | async">
+      {{item.title}}
+    </mat-chip>
+  </mat-chip-list>
+</div>
+

@@ -1,0 +1,32 @@
+<div class="d-flex-column">
+  <mat-form-field class="example-full-width">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" #corporate placeholder="Search" required>
+  </mat-form-field>
+  <div>
+    <button mat-raised-button color="primary" [routerLink]="['/search-route-multi-jobs']"
+            [queryParams]="{corporate: corporate.value}">Submit
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="jobPosts$ | async as list">
+  <table mat-table [dataSource]="list" class="mat-elevation-z8">         <!-- Column 1 -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>id</th>
+      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+    <!-- Column 2 -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>title</th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>description</th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id', 'title', 'description']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'title', 'description'];"></tr>
+  </table>
+</ng-container>
