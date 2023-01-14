@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-title>Limit</mat-card-title>
+  <mat-card-content>
+    <mat-button-toggle-group [formControl]="currentLimitForm">
+      <mat-button-toggle *ngFor="let item of limits$ | async" [value]="item">{{item}}</mat-button-toggle>
+    </mat-button-toggle-group>
+    <!--    <ng-container *ngIf="currentLimit$ | async">-->
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <ng-container *ngIf="currentLimit$ | async as currentLimit">
+        <button mat-menu-item *ngFor="let item of limits$ | async" (click)="onButtonClicked(item)"
+                [disabled]="currentLimit === item">
+          {{item}}
+        </button>
+      </ng-container>
+    </mat-menu>
+    <!--    </ng-container>-->
+  </mat-card-content>
+
+  <mat-card-title>List</mat-card-title>
+  <mat-card-content>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let item of products$ | async">{{item.title}}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

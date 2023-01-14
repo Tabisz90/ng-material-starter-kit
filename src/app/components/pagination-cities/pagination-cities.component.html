@@ -1,0 +1,20 @@
+<ng-container *ngIf="pageOptions$ | async as options">
+  <h1>Show Cities</h1>
+  <p>Select page</p>
+  <mat-selection-list role="list" fxLayout="row" [multiple]="false" (selectionChange)="selectPageNumber($event)">
+    <mat-list-option role="listoption" *ngFor="let item of pageNumbers$ | async" [value]="item"
+                     [selected]="item === options['pageNumber']">
+      {{item}}
+    </mat-list-option>
+  </mat-selection-list>
+  <p>Select items per page</p>
+  <mat-selection-list role="list" fxLayout="row" [multiple]="false" (selectionChange)="selectPageSize($event)">
+    <mat-list-option role="listoption" *ngFor="let item of pageSizes$ | async" [value]="item"
+                     [selected]="item === options['pageSize']">
+      {{item}}
+    </mat-list-option>
+  </mat-selection-list>
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let item of citiesWithPagination$ | async">{{item.name}}</mat-list-item>
+  </mat-list>
+</ng-container>
