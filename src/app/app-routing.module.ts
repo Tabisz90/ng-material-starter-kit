@@ -16,16 +16,22 @@ import {ComfortFeaturesServiceModule} from './services/comfort-features.service-
 import {CarsServiceModule} from './services/cars.service-module';
 
 @NgModule({
-  imports: [RouterModule.forRoot([{
-    path: 'list-2-route-sort-single-products-backend',
-    component: ProductsSortComponent
-  }, {path: 'search-route-multi-jobs', component: JobsSearchComponent}, {
-    path: 'products/:category',
-    component: ProductsComponent
-  }, {
-    path: 'list-2-route-filter-multi-cars-frontend',
-    component: CarsComponent
-  }]), ProductsSortComponentModule, ProductsServiceModule, JobsSearchComponentModule, JobPostsServiceModule, ProductsComponentModule, CategoriesServiceModule, CarsComponentModule, CarBrandsServiceModule, ComfortFeaturesServiceModule, CarsServiceModule],
+  imports: [RouterModule.forRoot([
+    {
+      path: 'list-2-route-sort-single-products-backend',
+      component: ProductsSortComponent
+    },
+    {
+      path: 'search-route-multi-jobs',
+      component: JobsSearchComponent
+    },
+    {
+      path: 'products/:category',
+      component: ProductsComponent
+    }, {
+      path: 'list-2-route-filter-multi-cars-frontend',
+      component: CarsComponent
+    }]), ProductsSortComponentModule, ProductsServiceModule, JobsSearchComponentModule, JobPostsServiceModule, ProductsComponentModule, CategoriesServiceModule, CarsComponentModule, CarBrandsServiceModule, ComfortFeaturesServiceModule, CarsServiceModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

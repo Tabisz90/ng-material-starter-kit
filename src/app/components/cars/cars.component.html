@@ -1,14 +1,18 @@
 <mat-card>
   <mat-card-title></mat-card-title>
-  <mat-card-content></mat-card-content>
+  <mat-card-content>
+    <section>
+      <mat-checkbox *ngFor="let item of brands$ | async" [value]="item.id"
+                    (change)="onBrandCheckboxChanged(item.id)">{{item.name}}</mat-checkbox>
+    </section>
+    <section>
+      <mat-checkbox *ngFor="let item of comfortFeatures$ | async" [value]="item.id"
+                    (change)="onComfortFeatureCheckboxChanged(item.id)">{{item.name}}</mat-checkbox>
+    </section>
+
+  </mat-card-content>
 </mat-card>
-<section *ngIf="brandsParam$ | async as brandsIds">
-  <mat-checkbox *ngFor="let item of brands$ | async"
-                (change)="onBrandCheckboxChanged(brandsIds, item.id)">{{item.name}}</mat-checkbox>
-</section>
-<section>
-  <mat-checkbox *ngFor="let item of comfortFeatures$ | async">{{item.name}}</mat-checkbox>
-</section>
+
 <ng-container *ngIf="cars$ | async as list">
   <table mat-table [dataSource]="list" class="mat-elevation-z8">         <!-- Column 1 -->
     <ng-container matColumnDef="model">
