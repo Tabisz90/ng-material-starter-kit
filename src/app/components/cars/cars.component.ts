@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable, shareReplay, tap} from 'rxjs';
+import {Observable, shareReplay, take, tap} from 'rxjs';
 import {CarBrandModel} from '../../models/car-brand.model';
 import {ComfortFeatureModel} from '../../models/comfort-feature.model';
 import {CarModel} from '../../models/car.model';
@@ -9,6 +9,7 @@ import {ComfortFeaturesService} from '../../services/comfort-features.service';
 import {CarsService} from '../../services/cars.service';
 import {map} from 'rxjs/operators';
 import {combineLatest} from 'rxjs';
+import {CarsFiterValues} from './cars-fiter-values';
 
 @Component({
   selector: 'app-cars',
@@ -19,40 +20,58 @@ import {combineLatest} from 'rxjs';
 export class CarsComponent {
   readonly brands$: Observable<CarBrandModel[]> = this._carBrandsService.getAll();
   readonly comfortFeatures$: Observable<ComfortFeatureModel[]> = this._comfortFeaturesService.getAll();
-  readonly comfortFeaturesParam$: Observable<string[]> = this._activatedRoute.queryParams.pipe(map((params) => params['comfortFeatures'] ?? []), shareReplay(1));
-  readonly brandsParam$: Observable<string[]> = this._activatedRoute.queryParams.pipe(map((params) => params['brands'] ?? []), shareReplay(1));
-  readonly cars$: Observable<CarModel[]> = combineLatest([this._carsService.getAll(), this.comfortFeaturesParam$, this.brandsParam$])
+
+  readonly filterParams$: Observable<CarsFiterValues> = this._activatedRoute.queryParams.pipe(map((params) => {
+    return {
+      brands: new Set<string>(params['brands'] === undefined ? [] : params['brands'].split(',')),
+      comfortFeaturesIds: new Set<string>(params['comfort-features'] === undefined ? [] : params['comfort-features'].split(','))
+    }
+  }), shareReplay(1));
+
+  readonly cars$: Observable<CarModel[]> = combineLatest([this._carsService.getAll(), this.filterParams$])
     .pipe(
-      map(([cars, comfortFeaturesIds, brandsIds]: [CarModel[], string[], string[]]) =>
-        cars.filter((car) => brandsIds.some((brandId) => car.brandId === brandId) &&
-          comfortFeaturesIds.some((comfortFeatureId) => car.comfortFeatureIds.some((carCFid) => carCFid === comfortFeatureId)))
-      ));
+      map(([cars, params]: [CarModel[], CarsFiterValues]) =>
+        cars
+          .filter((car) => (params.brands.size === 0 || params.brands.has(car.brandId)) &&
+            (params.comfortFeaturesIds.size === 0 ||
+              car.comfortFeatureIds.filter((comfortFeatureId) =>
+                params.comfortFeaturesIds.has(comfortFeatureId)).length === params.comfortFeaturesIds.size)))
+    );
 
   constructor(private _carBrandsService: CarBrandsService, private _comfortFeaturesService: ComfortFeaturesService,
               private _activatedRoute: ActivatedRoute, private _carsService: CarsService, private _router: Router) {
   }
 
-  onBrandCheckboxChanged(brandId: string): void {
-    this.brandsParam$.pipe(tap((brandIds) =>
-      this._router.navigate([`list-2-route-filter-multi-cars-frontend`],
+  onBrandCheckboxChanged(brandId: string, isSelected: boolean): void {
+    this.filterParams$.pipe(take(1), tap((params) => {
+      const brands: Set<string> = params.brands;
+      isSelected ? brands.delete(brandId) : brands.add(brandId);
+      this._router.navigate([],
         {
-          queryParams: {
-            brands: brandIds.some((brandId) => brandId === brandId) ? brandIds.splice(brandIds.findIndex((brandId) => brandId === brandId), 1) : brandIds.push(brandId)
-          }
-        })))
-    console.log('onBrandCheckboxChanged');
+          queryParams: this._mergeQueryParams(brands, params.comfortFeaturesIds),
+        })
+    }),).subscribe();
   }
 
-  onComfortFeatureCheckboxChanged(comfortFeatureId: string): void {
-    this.comfortFeaturesParam$.pipe(tap((comfortFeaturesIds) => {
-
-      console.log(comfortFeaturesIds);
-      this._router.navigate([`list-2-route-filter-multi-cars-frontend`],
+  onComfortFeatureCheckboxChanged(comfortFeatureId: string, isSelected: boolean): void {
+    this.filterParams$.pipe(take(1), tap((params) => {
+      const comfortFeatures: Set<string> = params.comfortFeaturesIds;
+      isSelected ? comfortFeatures.delete(comfortFeatureId) : comfortFeatures.add(comfortFeatureId)
+      this._router.navigate([],
         {
-          queryParams: {
-            comfortFeature: comfortFeaturesIds.some((comfortFeatureId) => comfortFeatureId === comfortFeatureId) ? comfortFeaturesIds.splice(comfortFeaturesIds.findIndex((comfortFeatureId) => comfortFeatureId === comfortFeatureId), 1) : comfortFeaturesIds.push(comfortFeatureId)
-          }
+          queryParams: this._mergeQueryParams(params.brands, comfortFeatures),
         })
-    }));
+    })).subscribe();
+  }
+
+  private _mergeQueryParams(brandsParams: Set<string>, comfortFeaturesParams: Set<string>,): Record<string, string> {
+    const queryParams = {} as Record<string, string>
+    if (brandsParams.size > 0) {
+      queryParams['brands'] = [...brandsParams].sort().join(',');
+    }
+    if (comfortFeaturesParams.size > 0) {
+      queryParams['comfort-features'] = [...comfortFeaturesParams].sort().join(',');
+    }
+    return queryParams;
   }
 }

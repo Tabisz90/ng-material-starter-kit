@@ -2,12 +2,12 @@
   <mat-card-title></mat-card-title>
   <mat-card-content>
     <section>
-      <mat-checkbox *ngFor="let item of brands$ | async" [value]="item.id"
-                    (change)="onBrandCheckboxChanged(item.id)">{{item.name}}</mat-checkbox>
+      <mat-checkbox #comfortFeature *ngFor="let item of brands$ | async" [value]="item.id"
+                    (change)="onBrandCheckboxChanged(item.id, !comfortFeature.checked)">{{item.name}}</mat-checkbox>
     </section>
     <section>
-      <mat-checkbox *ngFor="let item of comfortFeatures$ | async" [value]="item.id"
-                    (change)="onComfortFeatureCheckboxChanged(item.id)">{{item.name}}</mat-checkbox>
+      <mat-checkbox #brand *ngFor="let item of comfortFeatures$ | async" [value]="item.id"
+                    (change)="onComfortFeatureCheckboxChanged(item.id, !brand.checked)">{{item.name}}</mat-checkbox>
     </section>
 
   </mat-card-content>
@@ -21,7 +21,7 @@
     </ng-container>
     <!-- Column 2 -->
     <ng-container matColumnDef="brandId">
-      <th mat-header-cell *matHeaderCellDef> column2</th>
+      <th mat-header-cell *matHeaderCellDef> Brand</th>
       <td mat-cell *matCellDef="let element"> {{element.brandId}} </td>
     </ng-container>
     <ng-container matColumnDef="ComfortFeatures">
