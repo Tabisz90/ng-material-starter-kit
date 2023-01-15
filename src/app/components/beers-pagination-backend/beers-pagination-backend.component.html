@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title></mat-card-title>
+  <mat-card-content>
+    <mat-paginator *ngIf="pagination$ | async as pagination"
+                   [length]="pagination.length"
+                   [pageSize]="pagination.pageSize"
+                   [pageSizeOptions]="pagination.pageSizeOptions"
+                   [pageIndex]="pagination.pageNumber - 1"
+                   showFirstLastButtons="true"
+                   (page)="onPageChanged($event)"
+                   aria-label="Select page"></mat-paginator>
+    <mat-chip-list aria-label="Fish selection">
+      <mat-chip *ngFor="let item of beers$ | async">
+        {{item.name}}
+      </mat-chip>
+    </mat-chip-list>
+  </mat-card-content>
+</mat-card>

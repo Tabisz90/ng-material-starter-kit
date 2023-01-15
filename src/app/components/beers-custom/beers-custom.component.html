@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-title></mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="paginationForm">
+      <ng-container *ngIf="options$ | async as options">
+        <mat-button-toggle-group formControlName="pageSize" (change)="onPageSizeChanged($event)">
+          <mat-button-toggle *ngFor="let item of options.pageSizes" [value]="item">{{item}}</mat-button-toggle>
+        </mat-button-toggle-group>
+        <br>
+        <br>
+        <mat-radio-group formControlName="pageNumber" (change)="onPageNumberChanged($event)">
+          <mat-radio-button *ngFor="let item of options.pageNumbers" [value]="item">{{item}}</mat-radio-button>
+        </mat-radio-group>
+      </ng-container>
+    </form>
+  </mat-card-content>
+  <mat-card-content>
+    <h2>
+      Beer list
+    </h2>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let item of beers$ | async">{{item.name}}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
