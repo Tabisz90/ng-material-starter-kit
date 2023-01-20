@@ -12,6 +12,9 @@
       ],
       "activatedRoute": [
         "CONSTRUCTOR"
+      ],
+      "queryModel": [
+        "PROPERTY"
       ]
     },
     "service": {
@@ -50,6 +53,10 @@
       }
     },
     "model": {
+      "type": "DATA_STRUCTURE"
+    },
+    "queryModel": {
+      "folder": "query-models",
       "type": "DATA_STRUCTURE"
     },
     "service": {
