@@ -36,7 +36,7 @@
   },
   "forms": {
     "mat-form": {
-      "input": "<div><mat-form-field appearance=\"fill\"><mat-label>$label$</mat-label>$inputs.input-text$<mat-error *ngIf=\"$formVariable$.get('$formControlName$')!.invalid\">$formControlName$ is invalid</mat-error></mat-form-field></div>",
+      "input": "<div><mat-form-field appearance=\"fill\"><mat-label>$label$</mat-label>$inputs.input-text$<mat-error *ngIf=\"!$formVariable$.get('$formControlName$')?.valid\">$formControlName$ is invalid</mat-error></mat-form-field></div>",
       "formSubmit": "<div>$inputs.input-submit$</div>",
       "form": "<form [formGroup]=\"$formVariable$\" (ngSubmit)=\"$submitCallback$\">$content$</form>"
     },
