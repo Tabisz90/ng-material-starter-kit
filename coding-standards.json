@@ -25,6 +25,11 @@
         "PARAMETER",
         "RETURN"
       ]
+    },
+    "interceptor": {
+      "service": [
+        "CONSTRUCTOR"
+      ]
     }
   },
   "external": {
@@ -76,6 +81,12 @@
       "type": "ANGULAR_DIRECTIVE",
       "suffix": "Directive",
       "folder": "directives/$name$"
+    },
+    "port": {
+      "id": "port",
+      "type": "ABSTRACTION",
+      "suffix": "port",
+      "folder": "ports"
     }
   }
 }
